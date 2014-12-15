@@ -8,11 +8,12 @@ gem 'bcrypt-ruby'
 gem 'rack-flash3'
 
 group :development, :test do
+  gem 'rspec-rails'
+  gem 'orderly'
   gem 'capybara'
   gem 'cucumber'
   gem 'cucumber-sinatra'
   gem 'launchy'
   gem 'rspec'
   gem 'database_cleaner'
-  
 end

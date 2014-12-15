@@ -1,3 +1,16 @@
 <h1> Chitter </h1>
 
-<p> Tweets here</p>
+<p id="headertext">// <a href="/sign_up">REGISTRATION</a> // POST</p>
+
+<% @peeps.reverse.each do |peep| %>
+<p>
+PEEP: <%= peep.message %>
+</p>
+<p>
+AUTHOR
+</p>
+<p>
+TIME: <%= peep.time %> 
+</p>
+<hr class="divide" style="height:1px;color:gray">
+<% end %>

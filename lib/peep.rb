@@ -1,11 +1,13 @@
+require_relative 'user'
+
 class Peep
 
-  # this makes the instances of this class Datamapper resources
   include DataMapper::Resource
 
-  # This block describes what resources our model will have
-  property :id,         Serial # Serial means that it will be auto-incremented for every record
-  property :published,  DateTime
-  property :content,    String,   :length => 140
+  property :id,       Serial
+  property :message,  Text, :length => 1..140
+  property :time,     DateTime
+
+  belongs_to :user
 
 end
