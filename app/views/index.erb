@@ -1,5 +1,9 @@
 <h1> Chitter </h1>
 
+<% if flash[:notice] %>
+<p id="headertext"><%= flash[:notice] %></p>
+<% end %>
+
 <p id="headertext">// <a href="/sign_up">REGISTRATION</a> // POST</p>
 
 <% @peeps.reverse.each do |peep| %>
