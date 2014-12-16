@@ -24,7 +24,7 @@ feature "User can sign up" do
     visit '/'
     expect(User.count).to be 1
     click_link('REGISTRATION')
-    fill_in 'username', :with => 'benc93'
+    fill_in 'username', :with => "benc93"
     click_button 'SIGN-UP'
     expect(User.count).to be 1 
     expect(page).to have_content("Username has already been taken.")
@@ -34,7 +34,7 @@ feature "User can sign up" do
     visit '/'
     expect(User.count).to be 1
     click_link('REGISTRATION')
-    fill_in 'email', :with => 'ben@ben.com'
+    fill_in 'email', :with => "ben@ben.com"
     click_button 'SIGN-UP'
     expect(User.count).to be 1 
     expect(page).to have_content("Email address has already been taken.")

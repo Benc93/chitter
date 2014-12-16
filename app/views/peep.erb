@@ -1,0 +1,14 @@
+<p id="headertext">PEEP</p>
+
+<% if flash[:error] %>
+<p id="headertext"><%= flash[:error] %></p>
+<% end %>
+
+<form action="/peep" method="post">
+
+<textarea name="message" rows="7" cols="30" maxlength="140" required="required" placeholder="PEEP AWAY YOUNG HUCKLEBERRY! (REMEMBER: 140 CHARACTER LIMIT)">
+</textarea>
+
+<br><input type="submit" value="PEEP" id="submit">
+
+</form>

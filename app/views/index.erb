@@ -4,17 +4,17 @@
 <p id="headertext"><%= flash[:notice] %></p>
 <% end %>
 
-<p id="headertext">// <a href="/sign_up">REGISTRATION</a> // POST</p>
+<p id="headertext">// <a href="/sign_up">REGISTRATION</a> <a href="/sign_in">SIGN-IN</a> // <a href="/sign_out">SIGN-OUT</a> // <a href="/peep">PEEP</a></p>
 
 <% @peeps.reverse.each do |peep| %>
-<p>
-PEEP: <%= peep.message %>
-</p>
-<p>
-AUTHOR
-</p>
-<p>
-TIME: <%= peep.time %> 
-</p>
+
+<p>PEEP: <%= peep.message %></p>
+
+<p>AUTHOR: <%= peep.user.username %></p>
+
+<p>POSTED:<%= peep.time.to_time.strftime("%H:%M%p")%><%= peep.time.to_date.strftime("%D") %> </p>
+
+
 <hr class="divide" style="height:1px;color:gray">
+
 <% end %>

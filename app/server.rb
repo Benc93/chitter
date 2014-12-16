@@ -24,6 +24,7 @@ class Chitter < Sinatra::Base
 
   get '/' do
     @peeps = Peep.all
+    @users = User.all
     erb :index
   end
 
@@ -33,11 +34,12 @@ class Chitter < Sinatra::Base
 
   post '/sign_up' do 
     @user = User.create(:name => params[:name],
-                       :email => params[:email],
-                       :username => params[:username],
-                       :password => params[:password])
+                        :email => params[:email],
+                        :username => params[:username],
+                        :password => params[:password])
+
     if @user.save
-      flash[:notice] = "Welcome to Chitter. May all you peeps be inspirational"
+      flash[:notice] = "Welcome to Chitter, May all you peeps be inspirational"
       redirect '/'
     else 
       if User.all.map {|user| user.username }.include? (params[:username])
@@ -49,6 +51,49 @@ class Chitter < Sinatra::Base
       end
       erb :sign_up
     end
+  end
+
+  get '/sign_in' do 
+    erb :sign_in
+  end
+
+  post '/sign_in' do 
+    username, password = params[:username], params[:password]
+    user = User.authenticate(username, password)
+    if user 
+      session[:user_id] = user.id
+      flash[:notice] = "Hi #{user.name}, it's time to Chit..."
+      redirect to ('/')
+    else
+      flash.now[:error] = "Incorrect email or password"
+      erb :sign_in
+    end
+  end
+
+  get '/sign_out' do 
+    unless session[:user_id] == nil
+      session[:user_id] = nil
+      flash[:notice] = "Goodbye! Please come again"
+    else
+      flash[:notice] = "You're not yet signed in"      
+    end
+    redirect to ('/')
+  end
+
+  get '/peep' do 
+    if session[:user_id] == nil
+      flash[:notice] = "User must be signed in before they can post."
+      redirect to ('/')
+    else
+      erb :peep
+    end
+  end
+
+  post '/peep' do 
+    Peep.create(:message => params[:message],
+                :user_id => session[:user_id], :time => Time.now)
+    flash[:notice] = "Sucessfully peeped!"
+    redirect '/'
   end
 
   # start the server if ruby file executed directly
